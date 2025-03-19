@@ -3,23 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <h1 class="main-title">Age Calculator</h1>
-</title>
+    <title>Age Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        .main-title {
-    font-size: 58px;
-    font-weight: bold;
-    color: #007BFF;
-    text-transform: uppercase;
-    letter-spacing: 5px;
-    margin-bottom: 30px;
-}
-
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             text-align: center;
             margin: 50px;
+            background-color: #f4f4f4;
+        }
+        .main-title {
+            font-size: 58px;
+            font-weight: bold;
+            color: #007BFF;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 30px;
         }
         .container {
             max-width: 400px;
@@ -28,18 +27,33 @@
             border: 1px solid #ccc;
             border-radius: 10px;
             box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
         }
         input, button {
             margin: 10px;
             padding: 10px;
             font-size: 16px;
+            width: calc(100% - 40px);
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
+    <h1 class="main-title">Age Calculator</h1>
     <div class="container">
-        <h2>Age Calculator</h2>
-        <label for="birthdate">Enter Your Birthdate:</label>
+        <h2>Enter Your Birthdate:</h2>
         <input type="date" id="birthdate">
         <button onclick="calculateAge()">Calculate Age</button>
         <p id="result"></p>
