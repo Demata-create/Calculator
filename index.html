@@ -36,67 +36,64 @@
 
     <script>
         function calculateAge() {
-    let birthdate = document.getElementById('birthdate').value;
-    if (!birthdate) {
-        alert('Please enter a valid birthdate.');
-        return;
-    }
+            let birthdate = document.getElementById('birthdate').value;
+            if (!birthdate) {
+                alert('Please enter a valid birthdate.');
+                return;
+            }
 
-    let birthDateObj = new Date(birthdate);
-    let today = new Date();
+            let birthDateObj = new Date(birthdate);
+            let today = new Date();
 
-    let years = today.getFullYear() - birthDateObj.getFullYear();
-    let months = today.getMonth() - birthDateObj.getMonth();
-    let days = today.getDate() - birthDateObj.getDate();
+            let years = today.getFullYear() - birthDateObj.getFullYear();
+            let months = today.getMonth() - birthDateObj.getMonth();
+            let days = today.getDate() - birthDateObj.getDate();
 
-    if (days < 0) {
-        months--;
-        days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-    }
-    if (months < 0) {
-        years--;
-        months += 12;
-    }
+            if (days < 0) {
+                months--;
+                days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+            }
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
 
-    let zodiacSign = getZodiacSign(birthDateObj.getDate(), birthDateObj.getMonth() + 1);
+            let zodiacSign = getZodiacSign(birthDateObj.getDate(), birthDateObj.getMonth() + 1);
 
-    document.getElementById('result').innerHTML = 
-        `You are ${years} years, ${months} months, and ${days} days old.<br>
-         Your zodiac sign is <strong>${zodiacSign}</strong>.`;
-}
-
-  
-        function getZodiacSign(day, month) {
-    const zodiac = [
-        { sign: "Capricorn", start: [12, 22], end: [1, 19] },
-        { sign: "Aquarius", start: [1, 20], end: [2, 18] },
-        { sign: "Pisces", start: [2, 19], end: [3, 20] },
-        { sign: "Aries", start: [3, 21], end: [4, 19] },
-        { sign: "Taurus", start: [4, 20], end: [5, 20] },
-        { sign: "Gemini", start: [5, 21], end: [6, 20] },
-        { sign: "Cancer", start: [6, 21], end: [7, 22] },
-        { sign: "Leo", start: [7, 23], end: [8, 22] },
-        { sign: "Virgo", start: [8, 23], end: [9, 22] },
-        { sign: "Libra", start: [9, 23], end: [10, 22] },
-        { sign: "Scorpio", start: [10, 23], end: [11, 21] },
-        { sign: "Sagittarius", start: [11, 22], end: [12, 21] },
-        { sign: "Capricorn", start: [12, 22], end: [1, 19] } // Capricorn appears twice for year transition
-    ];
-
-    for (let z of zodiac) {
-        let [startMonth, startDay] = z.start;
-        let [endMonth, endDay] = z.end;
-        
-        if (
-            (month === startMonth && day >= startDay) || 
-            (month === endMonth && day <= endDay)
-        ) {
-            return z.sign;
+            document.getElementById('result').innerHTML = 
+                `You are ${years} years, ${months} months, and ${days} days old.<br>
+                 Your zodiac sign is <strong>${zodiacSign}</strong>.`;
         }
-    }
-    return "Unknown";
-}
 
+        function getZodiacSign(day, month) {
+            const zodiac = [
+                { sign: "Capricorn", start: [12, 22], end: [1, 19] },
+                { sign: "Aquarius", start: [1, 20], end: [2, 18] },
+                { sign: "Pisces", start: [2, 19], end: [3, 20] },
+                { sign: "Aries", start: [3, 21], end: [4, 19] },
+                { sign: "Taurus", start: [4, 20], end: [5, 20] },
+                { sign: "Gemini", start: [5, 21], end: [6, 20] },
+                { sign: "Cancer", start: [6, 21], end: [7, 22] },
+                { sign: "Leo", start: [7, 23], end: [8, 22] },
+                { sign: "Virgo", start: [8, 23], end: [9, 22] },
+                { sign: "Libra", start: [9, 23], end: [10, 22] },
+                { sign: "Scorpio", start: [10, 23], end: [11, 21] },
+                { sign: "Sagittarius", start: [11, 22], end: [12, 21] }
+            ];
+
+            for (let z of zodiac) {
+                let [startMonth, startDay] = z.start;
+                let [endMonth, endDay] = z.end;
+
+                if (
+                    (month === startMonth && day >= startDay) || 
+                    (month === endMonth && day <= endDay)
+                ) {
+                    return z.sign;
+                }
+            }
+            return "Unknown";
+        }
     </script>
 </body>
 </html>
