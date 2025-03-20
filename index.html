@@ -4,21 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Age Calculator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: Arial, sans-serif;
             text-align: center;
             margin: 50px;
-            background-color: #f4f4f4;
-        }
-        .main-title {
-            font-size: 58px;
-            font-weight: bold;
-            color: #007BFF;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            margin-bottom: 30px;
         }
         .container {
             max-width: 400px;
@@ -27,33 +17,18 @@
             border: 1px solid #ccc;
             border-radius: 10px;
             box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-            background-color: #ffffff;
         }
         input, button {
             margin: 10px;
             padding: 10px;
             font-size: 16px;
-            width: calc(100% - 40px);
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            background-color: #007BFF;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <h1 class="main-title">Age Calculator</h1>
     <div class="container">
-        <h2>Enter Your Birthdate:</h2>
+        <h2>Age Calculator</h2>
+        <label for="birthdate">Enter Your Birthdate:</label>
         <input type="date" id="birthdate">
         <button onclick="calculateAge()">Calculate Age</button>
         <p id="result"></p>
@@ -61,30 +36,67 @@
 
     <script>
         function calculateAge() {
-            let birthdate = document.getElementById('birthdate').value;
-            if (!birthdate) {
-                alert('Please enter a valid birthdate.');
-                return;
-            }
-            
-            let birthDateObj = new Date(birthdate);
-            let today = new Date();
-            
-            let years = today.getFullYear() - birthDateObj.getFullYear();
-            let months = today.getMonth() - birthDateObj.getMonth();
-            let days = today.getDate() - birthDateObj.getDate();
-            
-            if (days < 0) {
-                months--;
-                days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
-            }
-            if (months < 0) {
-                years--;
-                months += 12;
-            }
-            
-            document.getElementById('result').innerText = `You are ${years} years, ${months} months, and ${days} days old.`;
+    let birthdate = document.getElementById('birthdate').value;
+    if (!birthdate) {
+        alert('Please enter a valid birthdate.');
+        return;
+    }
+
+    let birthDateObj = new Date(birthdate);
+    let today = new Date();
+
+    let years = today.getFullYear() - birthDateObj.getFullYear();
+    let months = today.getMonth() - birthDateObj.getMonth();
+    let days = today.getDate() - birthDateObj.getDate();
+
+    if (days < 0) {
+        months--;
+        days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+    }
+    if (months < 0) {
+        years--;
+        months += 12;
+    }
+
+    let zodiacSign = getZodiacSign(birthDateObj.getDate(), birthDateObj.getMonth() + 1);
+
+    document.getElementById('result').innerHTML = 
+        `You are ${years} years, ${months} months, and ${days} days old.<br>
+         Your zodiac sign is <strong>${zodiacSign}</strong>.`;
+}
+
+  
+        function getZodiacSign(day, month) {
+    const zodiac = [
+        { sign: "Capricorn", start: [12, 22], end: [1, 19] },
+        { sign: "Aquarius", start: [1, 20], end: [2, 18] },
+        { sign: "Pisces", start: [2, 19], end: [3, 20] },
+        { sign: "Aries", start: [3, 21], end: [4, 19] },
+        { sign: "Taurus", start: [4, 20], end: [5, 20] },
+        { sign: "Gemini", start: [5, 21], end: [6, 20] },
+        { sign: "Cancer", start: [6, 21], end: [7, 22] },
+        { sign: "Leo", start: [7, 23], end: [8, 22] },
+        { sign: "Virgo", start: [8, 23], end: [9, 22] },
+        { sign: "Libra", start: [9, 23], end: [10, 22] },
+        { sign: "Scorpio", start: [10, 23], end: [11, 21] },
+        { sign: "Sagittarius", start: [11, 22], end: [12, 21] },
+        { sign: "Capricorn", start: [12, 22], end: [1, 19] } // Capricorn appears twice for year transition
+    ];
+
+    for (let z of zodiac) {
+        let [startMonth, startDay] = z.start;
+        let [endMonth, endDay] = z.end;
+        
+        if (
+            (month === startMonth && day >= startDay) || 
+            (month === endMonth && day <= endDay)
+        ) {
+            return z.sign;
         }
+    }
+    return "Unknown";
+}
+
     </script>
 </body>
 </html>
