@@ -41,6 +41,11 @@
             let interestType = document.getElementById("interestType").value;
             let result = 0;
 
+            if (isNaN(principal) || isNaN(rate) || isNaN(time)) {
+                document.getElementById("result").innerHTML = "Please enter valid numbers.";
+                return;
+            }
+
             if (interestType === "simple") {
                 result = (principal * rate * time) / 100;
             } else {
