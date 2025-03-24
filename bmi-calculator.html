@@ -33,31 +33,44 @@
         button:hover {
             background: #0056b3;
         }
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <main class="container">
         <h1>BMI Calculator</h1>
         <p>Enter your weight and height to calculate your BMI.</p>
 
-        <label>Weight (kg):</label>
-        <input type="number" id="weight" placeholder="Enter weight in kg">
+        <label for="weight">Weight (kg):</label>
+        <input type="number" id="weight" placeholder="Enter weight in kg" required min="0" aria-describedby="weightHelp">
+        <small id="weightHelp">Weight should be a positive number.</small>
 
-        <label>Height (feet):</label>
-        <input type="number" id="height" placeholder="Enter height in feet">
+        <label for="height">Height (cm):</label>
+        <input type="number" id="height" placeholder="Enter height in cm" required min="0" aria-describedby="heightHelp">
+        <small id="heightHelp">Height should be a positive number.</small>
 
         <button onclick="calculateBMI()">Calculate BMI</button>
         <h2 id="result"></h2>
-    </div>
+    </main>
 
     <script>
         function calculateBMI() {
             let weight = parseFloat(document.getElementById("weight").value);
             let height = parseFloat(document.getElementById("height").value) / 100; // Convert cm to meters
-            let bmi = weight / (height * height);
 
+            if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
+                document.getElementById("result").innerHTML = "Please enter valid weight and height values.";
+                return;
+            }
+
+            let bmi = weight / (height * height);
             let category = "";
+
             if (bmi < 18.5) category = "Underweight";
             else if (bmi < 24.9) category = "Normal weight";
             else if (bmi < 29.9) category = "Overweight";
